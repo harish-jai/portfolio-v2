@@ -29,7 +29,7 @@ export const educationTracks: EducationTrack[] = [
                 description:
                     "Virtualization, memory management, concurrency, and systems performance—grounded in real OS and VMM behavior.",
                 blurb:
-                    `This couse focused on exploring historical and modern operating systems as a research field.
+                    `This course focused on exploring historical and modern operating systems as a research field.
                     We studied topics like time-sharing, virtualization, scheduling, and security from a design point of view.
                     By reading over 50 papers and working on our own final project, I learned how to critically analyze research papers and identify themes and topics across research.
                     Key topics like Worse is Better and exokernels built on each other to explain how foundational OS research led to modern systems like LegoOS, Multikernels, and Firecracker.
@@ -45,7 +45,7 @@ export const educationTracks: EducationTrack[] = [
                     {
                         title: "Phoenix: Page-Fault Handling for Firecracker MicroVMs",
                         description:
-                            "Phoenix is a snapshot-restore system for Firecracker MicroVMs that improves serverless cold-start performance by avoiding disk-backed memory loading. It stores snapshot deltas in memory, using Incinerator, a custom page-level diff-compression algorithm, and reconstructs pages lazily using Linux userfaultfd. This reduces memory suplication across similar MicroVMs and serves page faults faster than disk-backed snapshot loading.",
+                            "Phoenix is a snapshot-restore system for Firecracker MicroVMs that improves serverless cold-start performance by avoiding disk-backed memory loading. It stores snapshot deltas in memory, using Incinerator, a custom page-level diff-compression algorithm, and reconstructs pages lazily using Linux userfaultfd. This reduces memory duplication across similar MicroVMs and serves page faults faster than disk-backed snapshot loading.",
                         links: ["https://github.com/ProjectPhoenixVM/phoenix", "/papers/cse582-paper.pdf"],
                     }
                 ],
@@ -75,7 +75,7 @@ export const educationTracks: EducationTrack[] = [
                         For my final project, I extended my summer math research on barrier option pricing to a parallel setting.
                         I implemented a parallel Boundary Element Method solver with dense time-history dependencies and evaluated multiple MPI decomposition strategies, 
                         showing that a cyclic distribution is essential for scalable performance on triangular workloads where later timesteps dominate computation.
-                        I used MPI for distributed memory parallelism and OpenMP for shared memory parallelism, which helped me reduce sychronization overhead caused by load imbalance.
+                        I used MPI for distributed memory parallelism and OpenMP for shared memory parallelism, which helped me reduce synchronization overhead caused by load imbalance.
                         `,
                         links: ["https://github.com/harish-jai/cse-587-barrier-option-pricing", "/papers/cse587-paper.pdf"],
                     }
@@ -152,7 +152,7 @@ export const educationTracks: EducationTrack[] = [
                     {
                         title: "Adaptive Video Streaming with a CDN",
                         description: `In this project, I implemented load balancing and adaptive bitrate selection through an HTTP proxy server.
-                        The goal was to use HTTP andthe DASH MPEG video protocol to fetch and stream video data on the web.
+                        The goal was to use HTTP and the DASH MPEG video protocol to fetch and stream video data on the web.
                         We implemented an HTTP proxy server that used polling to estimate the throughput of each client connected to the server.
                         Then, it determined the optimal bitrate for each client and delivered the appropriate video segments from a CDN.
                         `,
@@ -306,14 +306,14 @@ export const educationTracks: EducationTrack[] = [
                 id: "engr-455",
                 name: "Multidisciplinary Design Program",
                 description: "Multidisciplinary design, design thinking, and design methodology.",
-                blurb: "I worked with Northrop Grumman on GATE, a tool to generate unit tests for developers. Through this course, I gained experience working with a large team, managing a project, and developing a product with external sepcifications.",
+                blurb: "I worked with Northrop Grumman on GATE, a tool to generate unit tests for developers. Through this course, I gained experience working with a large team, managing a project, and developing a product with external specifications.",
                 tags: ["multidisciplinary-design", "design-thinking", "design-methodology", "project-management", "product-development", "software-engineering"],
             },
             {
                 id: "ba-456",
                 name: "Living Business Leadership Experience",
                 description: "Business course working with a local startup on their product launch.",
-                blurb: "I collaborated with Relic, an Ann Arbor startup, to develop a business strategy for their digital sports metaverse product. I learned about busines sstrategy, marketing, product development, and pitching to decision-makers.",
+                blurb: "I collaborated with Relic, an Ann Arbor startup, to develop a business strategy for their digital sports metaverse product. I learned about business strategy, marketing, product development, and pitching to decision-makers.",
                 tags: ["business-strategy", "marketing", "product-development", "pitching", "decision-making"],
             }
         ],
