@@ -1,12 +1,20 @@
 export const profile = {
+    id: "profile",
     name: "Harish Jaisankar",
-    location: "Ann Arbor, MI",
+    location: "Chicago, IL",
+    email: "harish.jaisankar@gmail.com",
+    linkedin: "https://linkedin.com/in/harishjai",
+    github: "https://github.com/harish-jai",
+    bio: "Hi! I'm a computer science graduate of the University of Michigan, Ann Arbor. I'm interested in backend and systems engineering, with a focus on distributed systems and working on software at scale. In the past, I've interned on the Messaging (push, email, SMS) team at Capital One, and the DevOps team at Northrop Grumman. I'm most engaged when I'm learning how systems behave in practice and working close to real-world constraints.",
+    careerGoals: "Early in my career, I want to optimize for learning. I want to gain experience building, operating, and maintaining large systems in practice. I want to prioritize working with experienced engineers and develop my good judgement around traddeoffs in performance, reliability, and complexity. Over time, I hope to work as a systems architect and contribute to systems that are both technically sound and thoughtfully designed.",
+    martialArts: "I've been practicing Tang Soo Do, a South Korean martial art, for the past 13 years. I was very active in the sport from second grade until I graduated from high school, when I earned my second degree black belt (Ee Dan). Over the years, I've competed in tournaments and taught students ranging from white belt to red belt. In the future, I'm interested in continuing Tang Soo Do and learning Brazilian Jiu-Jitsu and Muay Thai.",
+    geography: "I'm a huge geography nerd and love learning about different cultures and histories. I can name and place on a map all 197 countries in the world (193 United Nations member states, 2 observer states, and 2 partially recognized states). My dream is to visit all seven continents and hike Machu Picchu, the Petra monastery trail, and Mount Fuji.",
+    sports: "I'm a huge sports fan from the Metro Detroit area, so I love watching the Detroit Lions and Pistons. I also enjoy college football and am a fan of the Michigan Wolverines (Go Blue!). Additionally, I support Aston Villa in the English Premier League and Aston Martin in Formula 1 since my favorite driver is Fernando Alonso.",
     focus: [
-      "distributed systems",
-      "networking",
-      "operating systems",
-      "parallel computing",
+        "distributed systems",
+        "networking",
+        "operating systems",
+        "parallel computing",
     ],
-    interests: ["geography", "travel", "sports"],
-  };
-  
+    interests: ["geography", "travel", "sports", "martial arts"],
+};
