@@ -11,12 +11,11 @@
     --muted: #9aa6b2;
     --border: rgba(255, 255, 255, 0.08);
     --accent: #4c8dff;
-    --umbg: #00274c;
-    --umfg: #ffcb05;
-    --ummuted: #e6edf3;
+    --umbg: #001122;
+    --umfg: #f5c542;
+    --ummuted: #d6b760;
     --umborder: rgba(245, 197, 66, 0.25);
-    --umaccent: #f5c542;
-    --glow-color: 230, 237, 243;
+    --umaccent: #ffcb05;
 }
 
 html {
@@ -29,7 +28,6 @@ html.education-page {
     --muted: var(--ummuted);
     --border: var(--umborder);
     --accent: var(--umaccent);
-    --glow-color: 245, 197, 66;
 }
 
 body {

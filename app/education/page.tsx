@@ -19,13 +19,13 @@ export default function Education() {
                                     <h3 className="text-xl font-semibold">{course.id}: {course.name}</h3>
                                     {course.technologies && course.technologies.length > 0 && (
                                         <div className="mt-4">
-                                            <p className="text-base">
+                                            <p className="text-base text-[var(--muted)]">
                                                 Technologies: {course.technologies.join(", ")}
                                             </p>
                                         </div>
                                     )}
                                     {course.blurb && (
-                                        <p className="mt-4 text-base text-[var(--muted)] leading-relaxed">
+                                        <p className="mt-4 text-base leading-relaxed">
                                             {course.blurb}
                                         </p>
                                     )}

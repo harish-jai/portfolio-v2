@@ -16,7 +16,7 @@ export default function Home() {
                 </p>
 
                 <p className="mt-6 text-base leading-relaxed">
-                    I'm currently working on <a href={profile.currentProjectUrl} className="text-[var(--muted)] hover:text-[var(--fg)]" target="_blank" rel="noopener noreferrer">{profile.currentProjectName}</a>.
+                    I'm currently working on <a href={profile.currentProjectUrl} className="text-[var(--muted)] hover:text-[var(--fg)]" target="_blank" rel="noopener noreferrer">{profile.currentProjectName}, a coffe chat scheduling tool.</a>.
                 </p>
 
                 <details className="mt-12" open>
