@@ -15,6 +15,10 @@ export default function Home() {
                     {profile.bio}
                 </p>
 
+                <p className="mt-6 text-base leading-relaxed">
+                    I'm currently working on <a href={profile.currentProjectUrl} className="text-[var(--muted)] hover:text-[var(--fg)]" target="_blank" rel="noopener noreferrer">{profile.currentProjectName}</a>.
+                </p>
+
                 <details className="mt-12" open>
                     <summary className="text-lg font-semibold cursor-pointer">
                         Career Goals
