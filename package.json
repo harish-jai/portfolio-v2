@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "generate:embeddings": "tsx scripts/generate-embeddings.ts",
-    "check:embeddings": "tsx scripts/check-embeddings-stale.ts"
+    "check:embeddings": "tsx scripts/check-embeddings-stale.ts",
+    "test:hybrid-search": "tsx scripts/test-hybrid-search.ts",
+    "test:degradation": "tsx scripts/test-degradation.ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

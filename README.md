@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio
 
-## Getting Started
+Personal portfolio website built with Next.js, featuring a semantic search system that combines AI-powered embeddings with keyword matching.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Semantic Search**: Hybrid search system using OpenAI embeddings (70% semantic, 30% keyword) with graceful fallback to keyword-only search
+- **Type-Safe Content**: All content managed as TypeScript files for compile-time validation
+- **Keyboard Navigation**: Full keyboard support (Cmd/Ctrl+K to open search, arrow keys to navigate)
+- **Responsive Design**: Clean, modern UI that adapts across devices
+- **Content Sections**: Profile, experience, projects, education, and writing/blog posts
+
+## Tech Stack
+
+- **Framework**: Next.js 16 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS with CSS variables for theming
+- **Search**: Hybrid semantic + keyword search with OpenAI embeddings
+- **Deployment**: Vercel
+
+## Semantic Search Architecture
+
+The search system implements a production-ready hybrid approach:
+
+- **Embeddings**: Pre-generated using OpenAI's `text-embedding-3-small` model
+- **Hybrid Scoring**: Combines cosine similarity (semantic) with TF-IDF-like keyword matching
+- **Graceful Degradation**: Automatically falls back to keyword-only if embeddings or API key unavailable
+- **Build-Time Safety**: Embeddings generated locally and committed (never during build/deploy)
+- **Git Integration**: Pre-commit hook prevents stale embeddings from being committed
+
+The search UI includes:
+- Debounced input (300ms)
+- Real-time results
+- Keyboard navigation (arrow keys, Enter, Escape)
+- Type badges and excerpts
+- Click-outside-to-close
+
+## Project Structure
+
+```
+├── app/              # Next.js app router pages
+├── components/       # React components
+├── content/          # TypeScript content files
+├── lib/docs/         # Search and document building logic
+├── scripts/          # Utility scripts (embeddings, validation)
+└── data/             # Generated embeddings (committed)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Install dependencies
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Run development server
+npm run dev
 
-## Learn More
+# Generate embeddings (requires OPENAI_API_KEY in .env.local)
+npm run generate:embeddings
 
-To learn more about Next.js, take a look at the following resources:
+# Check if embeddings are stale
+npm run check:embeddings
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Personal project - not intended for reproduction.
