@@ -50,6 +50,60 @@ export default async function WritingPost({ params }: { params: Promise<{ slug: 
 
     // maybe need to use react-markdown if needed
     const renderContent = (content: string) => {
+        const processInlineCode = (text: string, startKey: number): (string | React.ReactNode)[] => {
+            const parts: (string | React.ReactNode)[] = [];
+            const codeParts = text.split("`");
+            codeParts.forEach((part, i) => {
+                if (i % 2 === 1) {
+                    parts.push(
+                        <code
+                            key={`code-${startKey + i}`}
+                            className="px-1 py-0.5 bg-[var(--muted)]/20 rounded text-sm font-mono"
+                        >
+                            {part}
+                        </code>
+                    );
+                } else if (part) {
+                    parts.push(part);
+                }
+            });
+            return parts;
+        };
+
+        const processLine = (text: string): (string | React.ReactNode)[] => {
+            const parts: (string | React.ReactNode)[] = [];
+            let remaining = text;
+            let key = 0;
+
+            while (remaining.length > 0) {
+                const linkMatch = remaining.match(/\[([^\]]+)\]\(([^)]+)\)/);
+                if (linkMatch && linkMatch.index !== undefined) {
+                    const beforeLink = remaining.slice(0, linkMatch.index);
+                    if (beforeLink) {
+                        parts.push(...processInlineCode(beforeLink, key));
+                        key += beforeLink.length;
+                    }
+                    parts.push(
+                        <a
+                            key={`link-${key++}`}
+                            href={linkMatch[2]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[var(--accent)] hover:underline"
+                        >
+                            {linkMatch[1]}
+                        </a>
+                    );
+                    remaining = remaining.slice(linkMatch.index + linkMatch[0].length);
+                } else {
+                    parts.push(...processInlineCode(remaining, key));
+                    break;
+                }
+            }
+
+            return parts;
+        };
+
         const lines = content.split("\n");
         const elements: React.ReactNode[] = [];
         let currentParagraph: (string | React.ReactNode)[] = [];
@@ -124,34 +178,36 @@ export default async function WritingPost({ params }: { params: Promise<{ slug: 
                 return;
             }
 
-            if (line.startsWith("# ")) {
+            const trimmedLine = line.trim();
+
+            if (trimmedLine.startsWith("# ")) {
                 flushParagraph();
                 flushList();
                 elements.push(
                     <h1 key={elements.length} className="mt-8 text-2xl font-semibold">
-                        {line.slice(2)}
+                        {trimmedLine.slice(2)}
                     </h1>
                 );
                 return;
             }
 
-            if (line.startsWith("## ")) {
+            if (trimmedLine.startsWith("## ")) {
                 flushParagraph();
                 flushList();
                 elements.push(
                     <h2 key={elements.length} className="mt-6 text-xl font-semibold">
-                        {line.slice(3)}
+                        {trimmedLine.slice(3)}
                     </h2>
                 );
                 return;
             }
 
-            if (line.startsWith("### ")) {
+            if (trimmedLine.startsWith("### ")) {
                 flushParagraph();
                 flushList();
                 elements.push(
                     <h3 key={elements.length} className="mt-4 text-lg font-semibold">
-                        {line.slice(4)}
+                        {trimmedLine.slice(4)}
                     </h3>
                 );
                 return;
@@ -170,24 +226,14 @@ export default async function WritingPost({ params }: { params: Promise<{ slug: 
                 flushList();
             }
 
+            if (line.includes("[") && line.includes("](")) {
+                const processedParts = processLine(line);
+                currentParagraph.push(...processedParts);
+                return;
+            }
+
             if (line.includes("`")) {
-                const parts = line.split("`");
-                const processedParts: (string | React.ReactNode)[] = [];
-                parts.forEach((part, i) => {
-                    if (i % 2 === 1) {
-                        // This is code
-                        processedParts.push(
-                            <code
-                                key={i}
-                                className="px-1 py-0.5 bg-[var(--muted)]/20 rounded text-sm font-mono"
-                            >
-                                {part}
-                            </code>
-                        );
-                    } else {
-                        processedParts.push(part);
-                    }
-                });
+                const processedParts = processInlineCode(line, 0);
                 currentParagraph.push(...processedParts);
                 return;
             }
@@ -212,7 +258,7 @@ export default async function WritingPost({ params }: { params: Promise<{ slug: 
                 href="/writing"
                 className="text-sm text-[var(--muted)] hover:text-[var(--fg)] mb-6 inline-block"
             >
-                ← Back to Writing
+                Back to Writing
             </Link>
 
             <article>

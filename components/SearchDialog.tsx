@@ -51,7 +51,11 @@ export function SearchDialog({ open, onClose }: SearchDialogProps) {
       const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}&limit=10`);
 
       if (!response.ok) {
-        throw new Error(`Search failed: ${response.statusText}`);
+        const errorData = await response.json().catch(() => ({}));
+        if (response.status === 429) {
+          throw new Error(errorData.error || `Rate limit exceeded. Please wait ${errorData.retryAfter || 60} seconds.`);
+        }
+        throw new Error(errorData.error || `Search failed: ${response.statusText}`);
       }
 
       const data = await response.json();

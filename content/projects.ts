@@ -65,7 +65,7 @@ export const projects: ProjectItem[] = [
       demo: "https://pairwise-jet.vercel.app/",
       github: "https://github.com/harish-jai/pairwise",
     },
-  },
+  }
 
 ];
 

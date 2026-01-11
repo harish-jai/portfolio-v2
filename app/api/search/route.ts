@@ -2,16 +2,55 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAllDocs } from "@/lib/docs/build";
 import { hybridSearch } from "@/lib/docs/search";
 import { loadEmbeddingIndex } from "@/lib/docs/semantic";
+import {
+  rateLimit,
+  validateQuery,
+  getClientIdentifier,
+} from "@/lib/rate-limit";
 
 export async function GET(request: NextRequest) {
   try {
+    const clientId = getClientIdentifier(request);
+    const rateLimitResult = rateLimit(clientId);
+
+    if (!rateLimitResult.success) {
+      const retryAfterSeconds = Math.ceil(
+        (rateLimitResult.resetAt - Date.now()) / 1000
+      );
+      const retryAfterMinutes = Math.ceil(retryAfterSeconds / 60);
+
+      return NextResponse.json(
+        {
+          error: `Rate limit exceeded. Please wait ${retryAfterSeconds} second${retryAfterSeconds !== 1 ? "s" : ""} (${retryAfterMinutes} minute${retryAfterMinutes !== 1 ? "s" : ""}) before trying again.`,
+          retryAfter: retryAfterSeconds,
+        },
+        {
+          status: 429,
+          headers: {
+            "X-RateLimit-Limit": "10",
+            "X-RateLimit-Remaining": "0",
+            "X-RateLimit-Reset": rateLimitResult.resetAt.toString(),
+            "Retry-After": retryAfterSeconds.toString(),
+          },
+        }
+      );
+    }
+
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get("q");
     const limitParam = searchParams.get("limit");
 
-    if (!query || query.trim().length === 0) {
+    if (!query) {
       return NextResponse.json(
         { error: "Query parameter 'q' is required" },
+        { status: 400 }
+      );
+    }
+
+    const queryValidation = validateQuery(query);
+    if (!queryValidation.valid) {
+      return NextResponse.json(
+        { error: queryValidation.error },
         { status: 400 }
       );
     }
@@ -41,7 +80,14 @@ export async function GET(request: NextRequest) {
         method,
         count: results.length,
       },
-      { status: 200 }
+      {
+        status: 200,
+        headers: {
+          "X-RateLimit-Limit": "10",
+          "X-RateLimit-Remaining": rateLimitResult.remaining.toString(),
+          "X-RateLimit-Reset": rateLimitResult.resetAt.toString(),
+        },
+      }
     );
   } catch (error) {
     console.error("Error in search API:", error);

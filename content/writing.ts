@@ -8,7 +8,7 @@ export interface WritingItem {
     tags?: string[];
 }
 
-import { samplePost } from "./posts/sample-post";
+import { samplePost } from "./posts/hello-world";
 
 export const writings: WritingItem[] = [
     samplePost,
